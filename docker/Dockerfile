@@ -99,6 +99,9 @@ RUN aries_cloudagent_package=$(find ./ -name "aries_cloudagent*.whl" | head -n 1
     rm aries_cloudagent*.whl && \
     chmod +rx $(python -m site --user-site) $HOME/.local
 
+RUN echo "Installing ptvsd ..." && \
+    pip install --no-cache-dir --find-links=. ptvsd
+
 # Clean-up unneccessary build dependencies and reduce final image size
 USER root
 RUN apt-get purge -y --auto-remove build-essential

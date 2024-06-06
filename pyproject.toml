@@ -49,6 +49,10 @@ did-peer-2 = "^0.1.2"
 did-peer-4 = "^0.1.4"
 uuid_utils = "^0.7.0"
 
+# anton
+aioquic = "^1.0.0"
+starlette = "^0.37.2"
+
 # askar
 aries-askar= { version = "~0.3.0", optional = true }
 indy-credx= { version = "~1.1.1", optional = true }

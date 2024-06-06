@@ -190,6 +190,7 @@ class PackWireFormat(BaseWireFormat):
                     message = await wallet.pack_message(fwd_msg.to_json(), recip_keys)
                 except WalletError as e:
                     raise WireFormatEncodeError("Forward message pack failed") from e
+            LOGGER.debug("Forwarded message: " + fwd_msg.to_json())
         return message
 
     def get_recipient_keys(self, message_body: Union[str, bytes]) -> List[str]:

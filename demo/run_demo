@@ -293,6 +293,9 @@ fi
 if ! [ -z "${ENABLE_PYDEVD_PYCHARM}" ]; then
   DOCKER_ENV="${DOCKER_ENV} -e ENABLE_PYDEVD_PYCHARM=${ENABLE_PYDEVD_PYCHARM} -e PYDEVD_PYCHARM_CONTROLLER_PORT=${PYDEVD_PYCHARM_CONTROLLER_PORT} -e PYDEVD_PYCHARM_AGENT_PORT=${PYDEVD_PYCHARM_AGENT_PORT}"
 fi
+if ! [ -z "${ENABLE_PTVSD}" ]; then
+  DOCKER_ENV="${DOCKER_ENV} -e ENABLE_PTVSD=${ENABLE_PTVSD}"
+fi
 
 echo "DOCKER_ENV=$DOCKER_ENV"
 
@@ -305,6 +308,7 @@ DOCKER=${DOCKER:-docker}
 $DOCKER run --name $AGENT --rm -it ${DOCKER_OPTS} \
     --network=${DOCKER_NET} \
     -p 0.0.0.0:$AGENT_PORT_RANGE:$AGENT_PORT_RANGE \
+    -p 0.0.0.0:5678:5678 \
     ${DOCKER_VOL} \
     $(if [ "$DOCKER_RESOLUTION" = "run" ]; then
       echo "-v $(pwd)/../aries_cloudagent:/home/aries/aries_cloudagent \
