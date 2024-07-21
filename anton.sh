@@ -20,4 +20,6 @@ export ACAPY_WALLET_KEY=secret
 export ACAPY_WALLET_NAME=anton
 export ACAPY_WALLET_SEED=anton000000000000000000000000000
 export ACAPY_WALLET_TYPE=askar
-aca-py start --inbound-transport http3 0.0.0.0 8020 --log-level info --admin 0.0.0.0 8021 --admin-insecure-mode --auto-accept-invites --auto-accept-requests --auto-respond-messages --auto-store-credential --emit-new-didcomm-prefix --endpoint "https://172.28.56.159:8020" --genesis-url "http://test.bcovrin.vonx.io/genesis" --label "anton" --outbound-transport http3 --preserve-exchange-records --public-invites --requests-through-public-did --wallet-key "secret" --wallet-name "anton" --wallet-type askar --seed "anton000000000000000000000000000"
+export ENABLE_PROMETHEUS=true
+export PROMETHEUS_PORT=8022
+aca-py start --inbound-transport http3 0.0.0.0 8020 --log-level info --admin 0.0.0.0 8021 --admin-insecure-mode --auto-accept-invites --auto-accept-requests --auto-respond-messages --auto-store-credential --emit-new-didcomm-prefix --endpoint "https://172.28.56.159:8020" --genesis-url "http://test.bcovrin.vonx.io/genesis" --label "anton" --outbound-transport http3 --preserve-exchange-records --public-invites --requests-through-public-did --wallet-key "secret" --wallet-name "anton" --wallet-type askar --seed "anton000000000000000000000000000" 
