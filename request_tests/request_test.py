@@ -23,18 +23,19 @@ for connection in anton_connections:
     print(f"Deleted connection {connection_id}: {delete_response.status_code}")
     time.sleep(1)  # Wait for a short period to ensure the deletion is processed
 
-# 2. Get Bob's connections
-bob_connections_url = f"{bob_base_url}/connections"
-bob_connections_response = requests.get(bob_connections_url, headers={"Accept": "application/json"})
-bob_connections = handle_response(bob_connections_response)
+# # 2. Get Bob's connections
+# bob_connections_url = f"{bob_base_url}/connections"
+# bob_connections_response = requests.get(bob_connections_url, headers={"Accept": "application/json"})
+# bob_connections = handle_response(bob_connections_response)
 
-# 3. Bob sends a connection request to Anton
-bob_create_request_url = f"{bob_base_url}/didexchange/create-request?their_public_did=NyaE9SFSneSNRq6Ch8N9Pt&alias=Anton"
-bob_create_request_response = requests.post(bob_create_request_url, headers={"Accept": "application/json"})
-bob_connection_id = handle_response(bob_create_request_response)["connection_id"]
+# # 3. Bob sends a connection request to Anton
+# bob_create_request_url = f"{bob_base_url}/didexchange/create-request?their_public_did=NyaE9SFSneSNRq6Ch8N9Pt&alias=Anton"
+# bob_create_request_response = requests.post(bob_create_request_url, headers={"Accept": "application/json"})
+# bob_connection_id = handle_response(bob_create_request_response)["connection_id"]
 
-# Wait for the connection request to appear in Anton's connections
-time.sleep(2)  # Wait for a short period to ensure the request is processed
+# # Wait for the connection request to appear in Anton's connections
+# time.sleep(2)  # Wait for a short period to ensure the request is processed
+
 
 # 4. Anton retrieves the connection request
 # anton_pending_connections_url = f"{anton_base_url}/connections?state=request"
@@ -50,11 +51,17 @@ time.sleep(2)  # Wait for a short period to ensure the request is processed
 # time.sleep(2)  # Wait for a short period to ensure the state is updated
 
 # 7. Anton sends a message to Bob
-anton_send_message_url = f"{anton_base_url}/connections/{bob_connection_id}/send-message"
-message_payload = {
-    "content": "Hallo Bob"
-}
-anton_send_message_response = requests.post(anton_send_message_url, json=message_payload, headers={"Content-Type": "application/json"})
-handle_response(anton_send_message_response)
+# anton_connections_url = f"{anton_base_url}/connections"
+# anton_connections_response = requests.get(anton_connections_url, headers={"Accept": "application/json"})
+# anton_connections = handle_response(anton_connections_response)["results"]
 
-print("Message sent from Anton to Bob successfully.")
+# bob_connection_id = bob_connection_id = anton_connections[0]["connection_id"]
+
+# anton_send_message_url = f"{anton_base_url}/connections/{bob_connection_id}/send-message"
+# message_payload = {
+#     "content": "Hallo Bob"
+# }
+# anton_send_message_response = requests.post(anton_send_message_url, json=message_payload, headers={"Content-Type": "application/json"})
+# handle_response(anton_send_message_response)
+
+# print("Message sent from Anton to Bob successfully.")
