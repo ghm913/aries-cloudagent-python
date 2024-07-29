@@ -20,7 +20,7 @@ class Http2Transport(BaseInboundTransport):
             port: Port to listen on
             create_session: Method to create a new inbound session
         """
-        super().__init__("http2", create_session, **kwargs)
+        super().__init__("http", create_session, **kwargs)
         self.host = host
         self.port = port
         self.runner = None
@@ -51,6 +51,7 @@ class Http2Transport(BaseInboundTransport):
         site = web.TCPSite(runner, host=self.host, port=self.port, ssl_context=ssl_context)
         self.runner = runner
 
+        """the folloing part of this function remain unchanged"""
         try:
             await site.start()
             LOGGER.info(f"Server started at https://{self.host}:{self.port}")

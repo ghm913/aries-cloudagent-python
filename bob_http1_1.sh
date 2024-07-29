@@ -1,4 +1,5 @@
 #!/bin/bash
+
 export PYTHONUNBUFFERED=1
 export ACAPY_ADMIN=[0.0.0.0,8031]
 export ACAPY_ADMIN_INSECURE_MODE=true
@@ -12,7 +13,7 @@ export ACAPY_EMIT_NEW_DIDCOMM_PREFIX=true
 export ACAPY_ENDPOINT=https://172.28.56.159:8030
 export ACAPY_GENESIS_URL=http://test.bcovrin.vonx.io/genesis
 export ACAPY_LABEL=anton
-export ACAPY_OUTBOUND_TRANSPORT=http3
+export ACAPY_OUTBOUND_TRANSPORT=http1_1
 export ACAPY_PRESERVE_EXCHANGE_RECORDS=true
 export ACAPY_PUBLIC_INVITES=true
 export ACAPY_REQUESTS_THROUGH_PUBLIC_DID=true
@@ -23,7 +24,7 @@ export ACAPY_WALLET_TYPE=askar
 export ENABLE_PROMETHEUS=true
 export PROMETHEUS_PORT=8032
 aca-py start \
-  --inbound-transport http3 0.0.0.0 8030 \
+  --inbound-transport http1_1 0.0.0.0 8030 \
   --log-level info \
   --admin 0.0.0.0 8031 \
   --admin-insecure-mode \
@@ -37,7 +38,7 @@ aca-py start \
   --endpoint "https://172.28.56.159:8030" \
   --genesis-url "http://test.bcovrin.vonx.io/genesis" \
   --label "bob_http2" \
-  --outbound-transport http3 \
+  --outbound-transport http1_1 \
   --preserve-exchange-records \
   --public-invites \
   --requests-through-public-did \

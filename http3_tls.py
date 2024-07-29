@@ -1,3 +1,5 @@
+"""Http3 outbound transport."""
+
 import logging
 import ssl
 from typing import Union, cast
@@ -23,7 +25,6 @@ class Http3Transport(BaseOutboundTransport):
         """Initialize an `Http3Transport` instance."""
         super().__init__(**kwargs)
         self.logger = logging.getLogger(__name__)
-        self.connection_pool = {}
 
     async def start(self):
         """Start the transport."""
@@ -31,27 +32,7 @@ class Http3Transport(BaseOutboundTransport):
 
     async def stop(self):
         """Stop the transport."""
-        for client in self.connection_pool.values():
-            await client.close()
-        self.connection_pool.clear()
-
-    async def get_client(self, host, port) -> Http3Client:
-        """Get or create a QUIC client."""
-        key = f"{host}:{port}"
-        if key not in self.connection_pool:
-            configuration = QuicConfiguration(
-                is_client=True,
-                alpn_protocols=H3_ALPN,
-                verify_mode=ssl.CERT_NONE,
-            )
-            client = await connect(
-                host,
-                port,
-                configuration=configuration,
-                create_protocol=Http3Client,
-            )
-            self.connection_pool[key] = cast(Http3Client, client)
-        return self.connection_pool[key]
+        pass
 
     async def handle_message(
         self,
@@ -85,10 +66,26 @@ class Http3Transport(BaseOutboundTransport):
             "Posting to %s; Data: %s; Headers: %s", endpoint, payload, headers
         )
 
+
+        configuration = QuicConfiguration(
+            is_client=True,
+            alpn_protocols=H3_ALPN,
+            verify_mode=ssl.CERT_NONE,
+            certificate="certs/ssl.crt",
+            private_key="certs/ssl.key"
+        )
+
         parsed = urlparse(endpoint)
         host = parsed.hostname
-        port = parsed.port or 443
+        port = parsed.port
 
-        client = await self.get_client(host, port)
-        headers["content-length"] = str(len(payload))
-        return await client.send_http_request(endpoint, "POST", payload, headers)
+        async with connect(
+                host,
+                port,
+                configuration=configuration,
+                create_protocol=Http3Client,
+        ) as client:
+            client = cast(Http3Client, client)
+
+            headers["content-length"] = str(len(payload))
+            return await client.send_http_request(endpoint, "POST", payload, headers)

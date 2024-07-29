@@ -37,7 +37,7 @@ aca-py start \
   --endpoint "https://172.28.56.159:8030" \
   --genesis-url "http://test.bcovrin.vonx.io/genesis" \
   --label "bob_http2" \
-  --outbound-transport http3 \
+  --outbound-transport http3_ssl \
   --preserve-exchange-records \
   --public-invites \
   --requests-through-public-did \

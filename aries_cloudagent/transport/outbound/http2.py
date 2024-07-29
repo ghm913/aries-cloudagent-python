@@ -14,7 +14,7 @@ from .base import BaseOutboundTransport, OutboundTransportError
 class Http2Transport(BaseOutboundTransport):
     """HTTP/2 outbound transport class."""
 
-    schemes = ("http", "https")
+    schemes = ( "https")
     is_external = False
 
     def __init__(self, **kwargs) -> None:

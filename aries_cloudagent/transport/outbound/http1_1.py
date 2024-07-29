@@ -26,7 +26,7 @@ class Http2Transport(BaseOutboundTransport):
     async def start(self):
         """Start the transport."""
         self.client = httpx.AsyncClient(
-            http2=True,
+            http2=False,
             verify="certs/ssl.crt"  # Use the provided certificate
         )
         return self
@@ -69,8 +69,6 @@ class Http2Transport(BaseOutboundTransport):
         )
         response = await self.client.post(endpoint, content=payload, headers=headers)
         self.logger.info(f"HTTP version used: {response.http_version}")
-        if response.http_version != "HTTP/2":
-            self.logger.warning("The request did not use HTTP/2, it used HTTP/1.1 instead")
         if response.status_code < 200 or response.status_code > 299:
             raise OutboundTransportError(
                 (
